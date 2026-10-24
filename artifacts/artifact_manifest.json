@@ -1,0 +1,74 @@
+[
+  {
+    "path": "README.md",
+    "size_bytes": 1163
+  },
+  {
+    "path": "config/data.yaml",
+    "size_bytes": 114
+  },
+  {
+    "path": "evaluation/BoxF1_curve.png",
+    "size_bytes": 149285
+  },
+  {
+    "path": "evaluation/BoxPR_curve.png",
+    "size_bytes": 135942
+  },
+  {
+    "path": "evaluation/BoxP_curve.png",
+    "size_bytes": 133320
+  },
+  {
+    "path": "evaluation/BoxR_curve.png",
+    "size_bytes": 154353
+  },
+  {
+    "path": "evaluation/args.yaml",
+    "size_bytes": 1712
+  },
+  {
+    "path": "evaluation/confusion_matrix.png",
+    "size_bytes": 142256
+  },
+  {
+    "path": "evaluation/confusion_matrix_normalized.png",
+    "size_bytes": 132486
+  },
+  {
+    "path": "evaluation/results.csv",
+    "size_bytes": 1434
+  },
+  {
+    "path": "evaluation/results.png",
+    "size_bytes": 286503
+  },
+  {
+    "path": "model_metadata.json",
+    "size_bytes": 971
+  },
+  {
+    "path": "models/visionguard_helmet.onnx",
+    "size_bytes": 12651087
+  },
+  {
+    "path": "models/visionguard_helmet.pt",
+    "size_bytes": 6471530
+  },
+  {
+    "path": "training/args.yaml",
+    "size_bytes": 1712
+  },
+  {
+    "path": "training/best.pt",
+    "size_bytes": 6471530
+  },
+  {
+    "path": "training/last.pt",
+    "size_bytes": 6471530
+  },
+  {
+    "path": "training/results.csv",
+    "size_bytes": 1434
+  }
+]

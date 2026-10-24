@@ -1,0 +1,39 @@
+{
+  "project": "VisionGuard AI",
+  "model": "YOLOv8n fine-tuned on hard-hat detection dataset",
+  "classes": {
+    "0": "helmet",
+    "1": "head",
+    "2": "person"
+  },
+  "input_size": [
+    416,
+    416
+  ],
+  "formats": [
+    "PyTorch .pt",
+    "ONNX .onnx"
+  ],
+  "training_epochs_requested": 10,
+  "training_device": "NVIDIA Tesla T4",
+  "dataset_config": "config/data.yaml",
+  "final_training_row_metrics": {
+    "epoch": "10",
+    "time": "526.215",
+    "train/box_loss": "1.24585",
+    "train/cls_loss": "0.65818",
+    "train/dfl_loss": "1.04158",
+    "metrics/precision(B)": "0.93758",
+    "metrics/recall(B)": "0.56623",
+    "metrics/mAP50(B)": "0.61559",
+    "metrics/mAP50-95(B)": "0.39444",
+    "val/box_loss": "1.22489",
+    "val/cls_loss": "0.64874",
+    "val/dfl_loss": "1.0382",
+    "lr/pg0": "0.000155761",
+    "lr/pg1": "0.000155761",
+    "lr/pg2": "0.000155761"
+  },
+  "created_utc": "2026-10-24T17:08:36.343062+00:00",
+  "python_version": "3.13.16"
+}

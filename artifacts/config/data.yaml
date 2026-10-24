@@ -1,0 +1,7 @@
+path: /content/visionguard/data/yolo
+train: images/train
+val: images/val
+names:
+  0: helmet
+  1: head
+  2: person

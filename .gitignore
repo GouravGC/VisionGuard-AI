@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.env
+.venv/
+conda-lock.yml
+.streamlit/secrets.toml
+runs/
+data/
+*.log

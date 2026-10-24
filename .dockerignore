@@ -1,0 +1,14 @@
+
+.git
+.github
+.conda
+.venv
+__pycache__
+.pytest_cache
+*.pyc
+.env
+logs/
+data/
+runs/
+artifacts/training/
+artifacts/evaluation/
