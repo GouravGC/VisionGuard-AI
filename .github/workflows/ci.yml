@@ -62,10 +62,15 @@ jobs:
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         env:
           RENDER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+          IMAGE_URL: ghcr.io/gouravgc/visionguard-ai:sha-${{ github.sha }}
         run: |
           if [ -z "$RENDER_DEPLOY_HOOK_URL" ]; then
-            echo "Missing RENDER_DEPLOY_HOOK_URL GitHub secret"
-            exit 1
+            echo "Render deploy hook secret is missing; skipping deployment trigger."
+            exit 0
           fi
+
+          ENCODED_IMAGE_URL=$(python -c "import os, urllib.parse; print(urllib.parse.quote(os.environ['IMAGE_URL'], safe=''))")
+
           curl --fail --silent --show-error \
-            --request POST "$RENDER_DEPLOY_HOOK_URL"
+            --request POST \
+            "${RENDER_DEPLOY_HOOK_URL}&imgURL=${ENCODED_IMAGE_URL}"
