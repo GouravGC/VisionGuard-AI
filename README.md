@@ -1,270 +1,344 @@
-# 🛡️ VisionGuard AI
+# 🛡️ VisionGuard AI — GPU-Accelerated PPE Inspection & Inference Optimization
 
-### OpenCV 5-Powered PPE Visual Inspection with Human-in-the-Loop Review
+**OpenCV AI Competition 2026 · Powered by AWS**
 
-[![CI/CD](https://github.com/GouravGC/VisionGuard-AI/actions/workflows/ci.yml/badge.svg)](https://github.com/GouravGC/VisionGuard-AI/actions)
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Render-46E3B7?logo=render&logoColor=white)](https://visionguard-ai-latest.onrender.com/)
-[![Docker Image](https://img.shields.io/badge/Container-GHCR-2496ED?logo=docker&logoColor=white)](https://github.com/GouravGC/VisionGuard-AI/pkgs/container/visionguard-ai)
-[![Python](https://img.shields.io/badge/Python-3.11-3776AB?logo=python&logoColor=white)](https://www.python.org/)
-[![OpenCV](https://img.shields.io/badge/OpenCV-5.x-5C3EE8?logo=opencv&logoColor=white)](https://opencv.org/)
+VisionGuard AI is a computer-vision research prototype for workplace Personal Protective Equipment (PPE) inspection. It analyzes images and sampled video frames to identify helmet-like objects and heads, presents annotated visual evidence, and flags potentially concerning results for human review.
 
-**VisionGuard AI** is a computer vision prototype for inspecting workplace images and sampled video frames for helmet- and head-related visual evidence. It combines OpenCV image/video processing with a trained YOLO object detection model and provides annotated outputs, structured reports, and explicit human-review indicators.
+The project combines **OpenCV 5, YOLO-based detection, PyTorch CUDA inference, ONNX Runtime, and an interactive Streamlit dashboard**. Its inference laboratory compares runtime latency and detection agreement to explore performance optimization and the potential to reduce compute costs.
 
-The goal is to make visual inspection easier while keeping uncertainty visible. A model prediction is not treated as a confirmed safety violation.
+<p align="center">
 
-## 🚀 Live Links
+  <a href="https://visionguard-ai-latest.onrender.com/"><strong>🚀 Live Demo</strong></a> ·
+  <a href="https://github.com/GouravGC/VisionGuard-AI"><strong>💻 Source Code</strong></a> ·
+  <a href="https://github.com/GouravGC/VisionGuard-AI/actions"><strong>⚙️ CI/CD</strong></a> ·
+  <a href="https://opencv26.devpost.com/"><strong>🏆 Competition</strong></a>
+
+</p>
+
+> **Responsible-use notice:** VisionGuard AI is an experimental research prototype, not a certified occupational-safety system. Detection results can be incorrect or incomplete. Human verification is required.
+
+## 📌 Project at a glance
+
+| Area | Implementation |
+|---|---|
+| Problem domain | Workplace PPE visual inspection |
+| Image and video processing | OpenCV 5 |
+| Object detection | Fine-tuned YOLOv8 nano model |
+| Model formats | PyTorch `.pt` and ONNX `.onnx` |
+| GPU inference | PyTorch with CUDA |
+| Alternative inference | ONNX Runtime |
+| Interactive interface | Streamlit |
+| Video processing | Configurable frame sampling |
+| Performance evaluation | Latency and detection-agreement comparison |
+| Testing | Pytest |
+| Automation | GitHub Actions |
+| Containerization | Docker |
+| Hosting | Render |
+| Planned extension | AWS-backed inspection evidence and serverless processing |
+
+## 🔗 Project links
 
 | Resource | Link |
 |---|---|
 | Live application | [Open VisionGuard AI](https://visionguard-ai-latest.onrender.com/) |
-| Source code | [GitHub repository](https://github.com/GouravGC/VisionGuard-AI) |
-| CI/CD workflow | [GitHub Actions](https://github.com/GouravGC/VisionGuard-AI/actions) |
-| Container package | [GitHub Container Registry](https://github.com/GouravGC/VisionGuard-AI/pkgs/container/visionguard-ai) |
+| GitHub repository | [GouravGC/VisionGuard-AI](https://github.com/GouravGC/VisionGuard-AI) |
+| GitHub Actions | [CI/CD workflow runs](https://github.com/GouravGC/VisionGuard-AI/actions) |
+| Container package | [VisionGuard AI on GHCR](https://github.com/GouravGC/VisionGuard-AI/pkgs/container/visionguard-ai) |
+| Architecture documentation | [docs/architecture.md](https://github.com/GouravGC/VisionGuard-AI/blob/main/docs/architecture.md) |
+| Model card and validation metrics | [docs/model-card.md](https://github.com/GouravGC/VisionGuard-AI/blob/main/docs/model-card.md) |
+| Dependencies | [requirements.txt](https://github.com/GouravGC/VisionGuard-AI/blob/main/requirements.txt) |
+| Application entry point | [app.py](https://github.com/GouravGC/VisionGuard-AI/blob/main/app.py) |
+| Automated tests | [tests/](https://github.com/GouravGC/VisionGuard-AI/tree/main/tests) |
+| OpenCV AI Competition | [Competition page](https://opencv26.devpost.com/) |
+| Competition rules and submission requirements | [Official rules](https://opencv26.devpost.com/rules) |
 
-The application is deployed on Render using a Docker image published to GitHub Container Registry. The deployed instance uses CPU inference; GPU acceleration is not assumed.
+## ✨ Key features
 
-## ✨ Features
+- **Image inspection:** Upload a workplace image and inspect model detections.
+- **Video inspection:** Analyze sampled frames from uploaded videos.
+- **Dual-runtime inference:** Compare PyTorch Native with ONNX Runtime.
+- **GPU acceleration:** Use an NVIDIA CUDA-capable GPU for PyTorch inference when available.
+- **Latency comparison:** View observed detector-call timings for both runtimes.
+- **Detection agreement:** Compare bounding-box matches using an Intersection over Union (IoU) threshold.
+- **Configurable inference:** Adjust confidence threshold, image size, video frame interval, and maximum sampled frames.
+- **Annotated evidence:** View detection overlays and inspection summaries.
+- **Downloadable results:** Export supported inspection reports, including JSON comparison data.
+- **Human-review flags:** Surface potentially concerning or inconclusive findings without making definitive compliance decisions.
+- **Reproducible engineering:** Repository includes tests, dependency pins, Docker configuration, and GitHub Actions automation.
 
-- **Image inspection:** Analyze uploaded workplace images for helmet- and head-like regions.
-- **Video inspection:** Process sampled video frames rather than running inference on every frame.
-- **Visual annotations:** Display bounding boxes and associated detection confidence.
-- **Human-in-the-loop review:** Flag potentially concerning observations for manual verification.
-- **Structured output:** Export inspection results as JSON and download annotated images.
-- **Inference comparison:** Compare PyTorch and ONNX execution paths where supported by the application.
-- **Automated testing:** Use pytest to validate core analysis behavior.
-- **Containerized deployment:** Package the application and model artifacts in Docker.
-- **CI/CD:** Use GitHub Actions for testing, image publishing, and the configured Render deployment trigger.
+## 🏗️ Architecture
 
-## 🧠 How It Works
-
-```text
-Workplace Image or Video
-          |
-          v
-OpenCV Image / Video Processing
-          |
-          v
-YOLO Object Detection
-          |
-          v
-Helmet / Head Detection Filtering
-          |
-          v
-Evidence Analysis and Annotation
-          |
-          v
-Human-Review Status + JSON Report
+```mermaid
+flowchart TD
+    A[Image or Workplace Video] --> B[Streamlit Dashboard]
+    B --> C[OpenCV 5 Processing]
+    C --> D[Image Decode / Video Frame Sampling]
+    D --> E{Inference Runtime}
+    E --> F[PyTorch Native]
+    E --> G[ONNX Runtime]
+    F --> H[Detection Analysis]
+    G --> H
+    H --> I[Bounding Boxes and Status]
+    H --> J[Runtime and Agreement Metrics]
+    I --> K[Annotated Evidence]
+    J --> L[Comparison Table and JSON]
+    K --> M[Human Review]
+    L --> M
 ```
 
-### Processing pipeline
+### Processing workflow
 
-1. **Input:** The user uploads an image or supported video.
-2. **Preprocessing:** OpenCV handles image decoding and video-frame extraction.
-3. **Inference:** The trained YOLO model produces candidate detections.
-4. **Filtering:** The application focuses on the helmet and head classes.
-5. **Analysis:** The application assigns an evidence status based on the detections.
-6. **Output:** Annotated visual evidence and structured results are presented for review.
+1. The user uploads an image or video through Streamlit.
+2. OpenCV decodes the input and samples video frames according to the configured interval.
+3. The selected inference runtime executes the trained detection model.
+4. The analysis layer summarizes helmet/head detections and uncertainty.
+5. The application compares runtime results when comparison mode is selected.
+6. Annotated images, detection summaries, timings, and downloadable results are presented for human review.
 
-The application is designed for inspection assistance, not autonomous enforcement.
+The application can flag frames for review when visual evidence raises a potential concern. It is a prototype workflow, not an autonomous safety agent that independently dispatches personnel or makes final compliance decisions.
 
-## 🏗️ Technology Stack
+For the implementation details, see the [architecture document](https://github.com/GouravGC/VisionGuard-AI/blob/main/docs/architecture.md).
 
-| Component | Technology |
+## ⚡ GPU inference and ONNX optimization
+
+The inference laboratory allows users to compare two execution paths using the same sampled video frames.
+
+### Observed local hardware and configuration
+
+| Setting | Observed value |
 |---|---|
-| Language | Python 3.11 |
-| UI | Streamlit |
-| Computer vision | OpenCV 5.x |
-| Object detection | Ultralytics YOLO |
-| Model formats | PyTorch `.pt` and ONNX `.onnx` |
-| ONNX inference | ONNX Runtime |
-| Data handling | NumPy, Pandas |
-| Testing | pytest |
-| Containerization | Docker |
-| CI/CD | GitHub Actions |
-| Container registry | GitHub Container Registry |
-| Application hosting | Render |
+| GPU | NVIDIA GeForce RTX 3060, 12 GB VRAM |
+| PyTorch execution provider | CUDA |
+| ONNX Runtime execution provider | CPU |
+| Confidence threshold | 0.35 |
+| Input image size | 416 |
+| Video frame interval | Every 15 frames |
+| Maximum sampled frames | 30 |
+| Video analyzed | 4K, 50 FPS MP4 sample |
+| Sampled frames processed | 27 |
 
-## 📊 Model and Evaluation
+### Captured first-frame benchmark
 
-The project uses a YOLOv8n model trained on the [Hard Hat Detection dataset](https://www.kaggle.com/datasets/andrewmvd/hard-hat-detection).
+The following values come from the local application screenshot and describe one displayed comparison.
 
-The training workflow converted Pascal VOC annotations into YOLO format and used separate training and validation splits.
+| Metric | PyTorch Native | ONNX Runtime |
+|---|---:|---:|
+| Execution provider | CUDA GPU | CPU |
+| Detector-call time | 62.50 ms | 23.01 ms |
+| Helmet detections | 1 | 1 |
+| Head detections | 0 | 0 |
+| Detection status | `HELMET_DETECTED` | `HELMET_DETECTED` |
 
-### Validation results
+The application reported:
 
-| Class | Precision | Recall | mAP@50 | mAP@50–95 |
+- Matched boxes: **1**
+- PyTorch detections: **1**
+- ONNX detections: **1**
+- Detection agreement: **100%**
+- IoU matching threshold: **0.5**
+- Displayed speed ratio: **2.72× in favor of ONNX Runtime** for this first-frame measurement
+
+These figures describe the captured example, not a universal performance guarantee. In particular, the 2.72× figure should not be interpreted as a statistically established speedup across all frames or workloads.
+
+### What this means for optimization
+
+The result motivates testing whether ONNX Runtime can deliver suitable performance on CPU hardware for selected inspection workloads.
+
+Potential advantages, if further benchmarking confirms them, include:
+
+- Reducing the need for GPU-backed infrastructure for suitable workloads.
+- Lowering resource allocation for intermittent image inspections.
+- Improving deployment flexibility where CPU inference meets latency requirements.
+- Reducing compute cost per processed frame when measured hosting costs support that conclusion.
+
+CPU inference will not necessarily outperform GPU inference for every model, workload, batch size, or environment. Execution providers, model initialization, preprocessing, memory use, concurrency, and hardware all affect the outcome.
+
+### Benchmarking methodology
+
+For a fair comparison, run repeated warmed-up measurements with identical input frames and report:
+
+- Median and p95 inference latency.
+- Frames processed per second.
+- Detection agreement and ground-truth accuracy metrics.
+- CPU/GPU utilization and memory usage.
+- Compute cost per 1,000 processed frames.
+
+The current detector-call timing can include initialization or warm-up effects. Detection agreement is not equivalent to accuracy; precision and recall require labeled ground-truth data.
+
+## 💰 Cost-optimization strategy
+
+VisionGuard AI explores cost optimization by evaluating the trade-off between inference speed, compute requirements, and detection quality.
+
+### Optimization opportunities
+
+**1. Runtime selection**
+
+Evaluate PyTorch CUDA and ONNX CPU execution under representative workloads, then choose the least expensive configuration that meets the required latency and quality targets.
+
+**2. Video frame sampling**
+
+The current workflow samples every 15 frames and caps processing at 30 sampled frames per video. Sampling reduces the number of inference calls compared with processing every frame, but may miss short-lived events between sampled frames.
+
+**3. Resource-aware deployment**
+
+Intermittent image workloads may be suitable for CPU-based inference, while high-throughput or latency-sensitive workloads may justify GPU allocation. The choice should be based on measured throughput and deployment costs.
+
+**4. Cost-per-frame measurement**
+
+A consistent evaluation can calculate:
+
+\[
+\text{Cost per 1,000 frames} =
+\frac{\text{Inference infrastructure cost}}{\text{Frames processed}}
+\times 1{,}000
+\]
+
+This calculation requires actual infrastructure costs and processed-frame counts for the same measurement period.
+
+**Important:** The current project has measured local runtime timings, not verified monetary savings. No percentage cost reduction is claimed.
+
+## 🧠 Model and validation results
+
+The model card records a YOLOv8 nano model initialized from pretrained weights and fine-tuned for 10 epochs on a Tesla T4 GPU, using an input size of 416 pixels.
+
+The reported validation metrics are:
+
+| Class | Precision | Recall | mAP50 | mAP50–95 |
 |---|---:|---:|---:|---:|
 | Helmet | 0.928 | 0.855 | 0.928 | 0.597 |
 | Head | 0.901 | 0.838 | 0.904 | 0.581 |
 | Person | 1.000 | 0.000 | 0.024 | 0.013 |
 | Overall | 0.943 | 0.564 | 0.619 | 0.397 |
 
-These figures are from the project's recorded validation evaluation. They are not a guarantee of performance on new sites, camera angles, lighting conditions, or video footage.
+Source: [VisionGuard AI model card](https://github.com/GouravGC/VisionGuard-AI/blob/main/docs/model-card.md).
 
-**Important:** Person-class performance is poor. The application excludes that class from its analysis rather than presenting it as reliable. Helmet and head detections are visual indicators and do not establish that a particular worker is compliant or non-compliant.
+These are recorded validation results, not a guarantee of performance on new environments. The person class is excluded from the application's analysis because its validation performance was poor.
 
-## ⚙️ Local Setup
+### Dataset and provenance
 
-### Requirements
+The model card identifies the [Hard Hat Detection dataset](https://universe.roboflow.com/) and reports the dataset source's CC0-1.0 designation. Verify the exact original dataset page, license, and attribution requirements before redistributing data or model artifacts.
+
+## 🧰 Technology stack
+
+| Technology | Role |
+|---|---|
+| [OpenCV](https://opencv.org/) | Image/video processing and visual annotations |
+| [Ultralytics YOLO](https://docs.ultralytics.com/) | Object detection |
+| [PyTorch](https://pytorch.org/) | Native model inference and CUDA acceleration |
+| [ONNX](https://onnx.ai/) | Portable model representation |
+| [ONNX Runtime](https://onnxruntime.ai/) | Alternative inference execution |
+| [Streamlit](https://streamlit.io/) | Interactive dashboard |
+| [NumPy](https://numpy.org/) | Numerical operations |
+| [Pytest](https://docs.pytest.org/) | Automated testing |
+| [GitHub Actions](https://github.com/features/actions) | Continuous integration |
+| [Docker](https://www.docker.com/) | Containerization |
+| [Render](https://render.com/) | Application hosting |
+
+The exact pinned package versions are maintained in the repository's [`requirements.txt`](https://github.com/GouravGC/VisionGuard-AI/blob/main/requirements.txt).
+
+## 🚀 Run locally
+
+### Prerequisites
 
 - Python 3.11
 - Git
-- Sufficient RAM for the model and its inference dependencies
-- The repository's trained model artifacts
+- The repository's pinned dependencies
+- The trained model artifacts required by the selected inference runtime
+- A compatible NVIDIA GPU and CUDA-enabled PyTorch build for GPU acceleration; CPU execution may be used where supported
 
-### 1. Clone the repository
+### Installation
 
 ```bash
 git clone https://github.com/GouravGC/VisionGuard-AI.git
 cd VisionGuard-AI
-```
 
-### 2. Create a virtual environment
-
-Using Conda:
-
-```bash
-conda create -n visionguard python=3.11.10 -y
-conda activate visionguard
-```
-
-### 3. Install dependencies
-
-```bash
-python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
-```
-
-### 4. Verify the installation
-
-```bash
 python -m pytest -q
-python -m pip check
-```
 
-### 5. Launch the application
-
-```bash
 streamlit run app.py
 ```
 
-Streamlit will display the local URL in the terminal.
+Open the local URL printed by Streamlit.
 
-### Model artifacts
+### Model files
 
-The repository includes these model files:
-
-- `artifacts/models/visionguard_helmet.pt`
-- `artifacts/models/visionguard_helmet.onnx`
-
-The default model path is configured by the application. To select a different PyTorch model path, set `VISIONGUARD_MODEL_PATH` to the desired file.
-
-## 🐳 Docker Deployment
-
-The repository includes a Dockerfile and Render configuration.
-
-The intended container image is:
+The repository expects the trained model artifacts at:
 
 ```text
-ghcr.io/gouravgc/visionguard-ai:latest
+artifacts/
+└── models/
+    ├── visionguard_helmet.pt
+    └── visionguard_helmet.onnx
 ```
 
-A commit-specific image tag is also published by the GitHub Actions workflow.
+The PyTorch model can alternatively be configured using `VISIONGUARD_MODEL_PATH`, as documented in the repository.
 
-To pull the image manually:
+Use the model artifacts provided with the project. If model files are not included in a particular checkout, obtain them from the authorized project source before running inference.
 
-```bash
-docker pull ghcr.io/gouravgc/visionguard-ai:latest
-```
+## 🧪 Testing and delivery
 
-The image must be publicly accessible or the user must authenticate to GHCR before pulling it. The command requires Docker to be installed locally.
+The repository includes:
 
-## 🔄 CI/CD Workflow
+- Automated tests under [`tests/`](https://github.com/GouravGC/VisionGuard-AI/tree/main/tests).
+- GitHub Actions workflow configuration under [`.github/workflows/`](https://github.com/GouravGC/VisionGuard-AI/tree/main/.github/workflows).
+- A [`Dockerfile`](https://github.com/GouravGC/VisionGuard-AI/blob/main/Dockerfile).
+- A [Render deployment blueprint](https://github.com/GouravGC/VisionGuard-AI/blob/main/render.yaml).
+- Pinned dependencies in [`requirements.txt`](https://github.com/GouravGC/VisionGuard-AI/blob/main/requirements.txt).
 
-The intended pipeline is:
+View the [GitHub Actions run history](https://github.com/GouravGC/VisionGuard-AI/actions) for the recorded CI status.
 
-1. A push or pull request triggers automated checks.
-2. GitHub Actions installs dependencies and runs pytest.
-3. The workflow checks dependency consistency.
-4. On a push to `main`, Docker builds the application image.
-5. The image is published to GitHub Container Registry.
-6. The configured Render deploy hook triggers a deployment after image publishing succeeds.
+## ☁️ AWS integration status
 
-Check the [Actions page](https://github.com/GouravGC/VisionGuard-AI/actions) for the actual status of each run. A successful test job alone does not prove that publishing and deployment also succeeded.
+**AWS integration is a planned extension, not a completed or verified feature in this version.**
 
-## ☁️ AWS Integration Status
+A potential extension is to store inspection metadata, JSON reports, and selected annotated evidence in a private Amazon S3 bucket, with an optional serverless workflow to evaluate high-risk inspection events.
 
-**Status: Not yet implemented.**
+That extension would require an activated AWS account, the necessary permissions, service access, and a successful end-to-end test. This repository does not claim that live S3, Lambda, Bedrock, or other AWS-backed processing is currently integrated.
 
-AWS integration is a planned extension and is not represented as a deployed capability in the current application.
+The competition requires a meaningful component to run on AWS. See the [official competition rules](https://opencv26.devpost.com/rules) and ensure the final submission accurately describes the services actually implemented and demonstrated.
 
-A potential next step is Amazon S3 storage for annotated inspection images and JSON reports, using restricted IAM permissions. This would provide persistent evidence storage while keeping model inference on the existing application host.
+## ⚠️ Limitations and responsible use
 
-Any AWS services will be documented as implemented only after they have been configured, tested, and connected to the application.
+- The application analyzes sampled frames rather than every video frame.
+- Events occurring between sampled frames may be missed.
+- False positives and false negatives are possible.
+- The person class is excluded because of poor validation performance.
+- Scene-level head and helmet detections do not associate a helmet with a specific worker.
+- A helmet-like detection does not establish correct fit, wearing position, or individual compliance.
+- Agreement between inference runtimes does not prove model accuracy.
+- Benchmark results from one video and one machine may not generalize.
+- No monetary cost savings have been verified.
+- No live AWS integration is claimed in the current version.
 
-## 🔐 Responsible Use and Limitations
+**Human review is required.** The absence of detections must never be interpreted as proof that a scene is safe.
 
-VisionGuard AI is a research prototype and is not a certified workplace safety system.
+## 🔭 Future work
 
-- A missing helmet detection does not prove that a worker is violating a safety policy.
-- Head and helmet detections are not linked reliably to individual workers.
-- The person class has poor validation performance and is excluded from the current analysis.
-- Video analysis samples frames and can miss events between samples.
-- Inference latency varies with hardware, image resolution, model initialization, and runtime.
-- CPU-only hosting does not provide GPU acceleration.
-- Predictions must be reviewed by a qualified human before any operational decision.
-- Avoid uploading confidential footage or personally identifiable information unless you are authorized to do so.
+- Repeatable CPU-versus-GPU benchmarking with warm-up and percentile latency.
+- Accuracy evaluation against labeled test data.
+- Measurement of compute cost per 1,000 frames.
+- Improved video sampling strategies and temporal consistency checks.
+- Optional private AWS storage for inspection reports, subject to account and service availability.
+- Optional serverless risk-event processing and operational monitoring.
+- More extensive failure-case evaluation and reproducible deployment documentation.
 
-## 📁 Repository Structure
+## 🏆 Competition
 
-```text
-VisionGuard-AI/
-├── .github/
-│   └── workflows/
-│       └── ci.yml
-├── artifacts/
-│   ├── models/
-│   ├── evaluation/
-│   ├── training/
-│   └── config/
-├── docs/
-│   ├── architecture.md
-│   └── model-card.md
-├── src/
-│   └── visionguard/
-├── tests/
-├── app.py
-├── Dockerfile
-├── .dockerignore
-├── pytest.ini
-├── render.yaml
-├── requirements.txt
-└── README.md
-```
+Built for the **[OpenCV AI Competition 2026, powered by AWS](https://opencv26.devpost.com/)**.
 
-## 🗺️ Roadmap
-
-- [x] Train a YOLO-based helmet/head detector.
-- [x] Export PyTorch and ONNX model artifacts.
-- [x] Implement image and sampled-video inspection.
-- [x] Provide annotated outputs and structured reports.
-- [x] Add automated tests and container configuration.
-- [x] Configure GitHub Actions and Render deployment workflow.
-- [ ] Complete and publish final demo and evaluation evidence.
-- [ ] Implement and verify AWS-backed evidence storage.
-- [ ] Expand evaluation on varied lighting, occlusion, and camera conditions.
-
-## 📚 Documentation
-
-- [System architecture](docs/architecture.md)
-- [Model card](docs/model-card.md)
-- [GitHub Actions](https://github.com/GouravGC/VisionGuard-AI/actions)
-- [Live application](https://visionguard-ai-latest.onrender.com/)
+The competition emphasizes practical computer-vision applications, technical execution, real-world impact, reproducibility, documentation, and responsible operation. See the [official rules and final submission requirements](https://opencv26.devpost.com/rules).
 
 ## 📄 License
 
-Add or confirm the repository's chosen license before distributing this project. Also review the original dataset and model-library terms before reuse.
+See the repository's [`LICENSE`](https://github.com/GouravGC/VisionGuard-AI/blob/main/LICENSE) file for the project's licensing terms. Dataset and model-artifact terms may be separate.
 
 ---
 
-**Built as a computer vision prototype for PPE inspection, with an emphasis on transparent uncertainty, reproducible evaluation, and human review.**
+<p align="center">
+
+**VisionGuard AI**  
+*Computer vision for PPE inspection. Measured inference performance. Human-in-the-loop review.*
+
+[Live Demo](https://visionguard-ai-latest.onrender.com/) · [GitHub](https://github.com/GouravGC/VisionGuard-AI) · [CI/CD](https://github.com/GouravGC/VisionGuard-AI/actions) · [Competition](https://opencv26.devpost.com/)
+
+</p>
